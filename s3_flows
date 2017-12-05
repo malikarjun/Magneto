@@ -1,0 +1,2 @@
+ip,nw_dst=10.0.0.1,actions=mod_dl_dst:00:00:00:00:00:01,mod_dl_src:00:00:00:00:00:05,IN_PORT
+ip,nw_dst=10.0.0.2,actions=mod_dl_dst:00:00:00:00:00:02,mod_dl_src:00:00:00:00:00:05,IN_PORT
