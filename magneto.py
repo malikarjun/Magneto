@@ -81,45 +81,31 @@ class LearningSwitch (object):
     # We want to hear PacketIn messages, so we listen
     # to the connection
     connection.addListeners(self)
+    magnetmac = '00:ff:00:00:ff:00'
 
     while(1):
       print('Sending seed ARP packets')
-      r = arp()
-      r.hwtype = r.HW_TYPE_ETHERNET
-      r.prototype = r.PROTO_TYPE_IP
-      r.hwlen = 6
-      r.protolen = r.protolen
-      r.opcode = r.REPLY
-      r.hwdst = EthAddr('00:00:00:00:00:00')
-      r.protodst = IPAddr('10.0.0.2')
-      r.hwsrc = EthAddr('00:00:00:00:00:05')
-      r.protosrc = IPAddr('10.0.0.2')
-      e = ethernet(type=ethernet.ARP_TYPE, src=EthAddr('00:00:00:00:00:05'), dst=EthAddr('00:00:00:00:00:01'))
-      e.set_payload(r)
-      log.debug("\nARPing for %s on behalf of %s" % (str(r.protodst), str(r.protosrc)))
-      msg = of.ofp_packet_out()
-      msg.data = e.pack()
-      msg.actions.append(of.ofp_action_output(port=1))
-      connection.send(msg)
 
+      for i in range(1,81):
+        r = arp()
+        r.hwtype = r.HW_TYPE_ETHERNET
+        r.prototype = r.PROTO_TYPE_IP
+        r.hwlen = 6
+        r.protolen = r.protolen
+        r.opcode = r.REPLY
+        r.hwdst = EthAddr('00:00:00:00:00:00')
+        r.protodst = IPAddr('10.0.0.{0}'.format(i))
+        r.hwsrc = EthAddr(magnetmac)
+        r.protosrc = IPAddr('10.0.0.{0}'.format(i))
+        e = ethernet(type=ethernet.ARP_TYPE, src=EthAddr(magnetmac), dst=EthAddr('ff:ff:ff:ff:ff:ff')) # The dst should be unicast according to the paper
+        # In case of unicast use this -> dst=EthAddr('00:00:00:00:00:' + hex(int(str(i)))[2:].zfill(2)))
+        e.set_payload(r)
+        log.debug("\nARPing for %s" % (str(r.protodst)))
+        msg = of.ofp_packet_out()
+        msg.data = e.pack()
+        msg.actions.append(of.ofp_action_output(port=of.OFPP_ALL))
+        connection.send(msg)
 
-      r = arp()
-      r.hwtype = r.HW_TYPE_ETHERNET
-      r.prototype = r.PROTO_TYPE_IP
-      r.hwlen = 6
-      r.protolen = r.protolen
-      r.opcode = r.REPLY
-      r.hwdst = EthAddr('00:00:00:00:00:00')
-      r.protodst = IPAddr('10.0.0.1')
-      r.hwsrc = EthAddr('00:00:00:00:00:05')
-      r.protosrc = IPAddr('10.0.0.1')
-      e = ethernet(type=ethernet.ARP_TYPE, src=EthAddr('00:00:00:00:00:05'), dst=EthAddr('00:00:00:00:00:02'))
-      e.set_payload(r)
-      log.debug("\nARPing for %s on behalf of %s" % (str(r.protodst), str(r.protosrc)))
-      msg = of.ofp_packet_out()
-      msg.data = e.pack()
-      msg.actions.append(of.ofp_action_output(port=1))
-      connection.send(msg)
       time.sleep(5)
 
 

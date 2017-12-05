@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec189ad6-832d-4895-8d1d-9e9ecf462b56" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magneto.py" afterPath="$PROJECT_DIR$/magneto.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tree-net.py" afterPath="$PROJECT_DIR$/tree-net.py" />
     </list>
     <ignored path="Magneto.iws" />
@@ -25,8 +26,8 @@
       <file leaf-file-name="tree-net.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tree-net.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="27" column="73" lean-forward="false" selection-start-line="27" selection-start-column="73" selection-end-line="27" selection-end-column="73" />
+            <state relative-caret-position="640">
+              <caret line="181" column="102" lean-forward="false" selection-start-line="181" selection-start-column="102" selection-end-line="181" selection-end-column="102" />
               <folding>
                 <element signature="e#126#157#0" expanded="true" />
               </folding>
@@ -37,8 +38,8 @@
       <file leaf-file-name="magneto.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/magneto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+            <state relative-caret-position="228">
+              <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -374,14 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magneto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -390,10 +383,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/magneto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tree-net.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="27" column="73" lean-forward="false" selection-start-line="27" selection-start-column="73" selection-end-line="27" selection-end-column="73" />
+        <state relative-caret-position="640">
+          <caret line="181" column="102" lean-forward="false" selection-start-line="181" selection-start-column="102" selection-end-line="181" selection-end-column="102" />
           <folding>
             <element signature="e#126#157#0" expanded="true" />
           </folding>
