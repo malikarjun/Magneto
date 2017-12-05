@@ -44,7 +44,7 @@ def treeNet(net, switches):
     info('*** Add SDN switches\n')
     s3 = net.addSwitch('s3', cls=OVSSwitch, failMode='secure')
     net.addLink(s3, s1)
-    # net.addLink(s3, s2)
+    net.addLink(s3, s2)
 
     info('*** Add Hosts\n')
     h1 = net.addHost('h1')
