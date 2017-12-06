@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec189ad6-832d-4895-8d1d-9e9ecf462b56" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magneto.py" afterPath="$PROJECT_DIR$/magneto.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flows_s6" afterPath="$PROJECT_DIR$/flows_s6" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tree-net.py" afterPath="$PROJECT_DIR$/tree-net.py" />
     </list>
     <ignored path="Magneto.iws" />
@@ -26,8 +26,8 @@
       <file leaf-file-name="tree-net.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tree-net.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="181" column="102" lean-forward="false" selection-start-line="181" selection-start-column="102" selection-end-line="181" selection-end-column="102" />
+            <state relative-caret-position="586">
+              <caret line="181" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
               <folding>
                 <element signature="e#126#157#0" expanded="true" />
               </folding>
@@ -393,8 +393,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tree-net.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="181" column="102" lean-forward="false" selection-start-line="181" selection-start-column="102" selection-end-line="181" selection-end-column="102" />
+        <state relative-caret-position="586">
+          <caret line="181" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
           <folding>
             <element signature="e#126#157#0" expanded="true" />
           </folding>

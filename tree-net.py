@@ -179,11 +179,9 @@ def generateFlows(net, switches, magnet_mac='00:ff:00:00:ff:00'):
                 for hh in topo_access[ac_sw]:
                     if hh == host_num:
                         out_port = (idx + 2)
-                    flows.write(rule_2.format(str(host)[1:], (idx+2), host_mac, magnet_mac, 'in_port'))
 
-            if out_port == 1:
-                out_port = 'in_port'
             flows.write(rule.format(str(host)[1:], host_mac, magnet_mac, out_port))
+            flows.write(rule_2.format(str(host)[1:], out_port, host_mac, magnet_mac, 'in_port'))
         flows.close()
         os.system('sudo ovs-ofctl add-flows {0} {1}'.format(sw, file_name))
 
