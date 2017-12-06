@@ -26,6 +26,11 @@ def back(topo):
             topo_back[i] = k
     return topo_back
 
+# hosts = [[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,],
+#         [33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64]]
+
+hosts = [[1],
+         [2]]
 
 topo_core = {1: [6, 9], 2: [10, 13], 3: [14, 17], 4: [18, 21], 5: [22, 25]}
 topo_distro = {6: [26, 27], 7: [28, 29], 8: [30, 31], 9: [32, 33],
@@ -129,7 +134,7 @@ def treeNet(net, switches):
 
     # Set IP Addresses to each of the hosts
     for host in net.hosts:
-        print('For host {0}, ip is 10.0.0.{1}'.format(str(host), str(host)[1:]))
+        # print('For host {0}, ip is 10.0.0.{1}'.format(str(host), str(host)[1:]))
         host.setIP('10.0.0.{0}'.format(str(host)[1:]))
 
 
@@ -185,30 +190,64 @@ def generateFlows(net, switches, magnet_mac='00:ff:00:00:ff:00'):
         flows.close()
         os.system('sudo ovs-ofctl add-flows {0} {1}'.format(sw, file_name))
 
+def startTG(net):
+    'Traffic generation'
+    flag = 0
+    for i in range(len(hosts[0])):
+        flag ^= 1
+        serv = net.get('h'+str(hosts[flag][i]))
+        cli  = net.get('h'+str(hosts[flag^1][i]))
+        print cli,cli.IP(),'->',serv,serv.IP()
+        serv.cmd('ping -c1 {0}'.format(cli.IP()))
+        serv.cmd('ITGRecv &'.format(str(serv)))
+        cli.cmd('sleep 2 && ITGSend -T UDP -a '+serv.IP()+' -t 10000 -C 1 -c 512 -l $HOME/mallikarjun/stat/send{0}.log -x $HOME/mallikarjun/stat/recv{0}.log &'.format(str(serv)))
 
 if __name__ == '__main__':
-    # os.system('sudo mn -c')
-    TOPO_FILE = 'topo_tree_adj_list'
-
     parser = argparse.ArgumentParser(description='Run a mininet simulation for tree topology')
     parser.add_argument('-c', '--cli', help='Display CLI on given topology.', action='store_true')
     parser.add_argument('-s', '--switches', help='''Names of switches to have
                         SDN. Switches are numbered in level-order of a tree
                         starting from 1. Enter a space seperated list''',
                         nargs='*', default={}, type=str)
+    parser.add_argument('-t', '--stats', help='Start TCPdump on all switch interfaces for stats collection purpose', action='store_true')
     args = parser.parse_args()
 
     if args.cli:
-        setLogLevel( 'info' )
+        setLogLevel('info')
+    setLogLevel('info')
 
     net = Mininet( topo=None, build=False, ipBase='10.0.0.0/8', autoSetMacs=True)
+    # Build the topology
     treeNet(net, set(args.switches))
-    print(net.get('s6').ports)
 
+    # # Collect stats using tcpdump
+    # if args.stats:
+    #     monitor = []
+    #     for sw in args.switches:
+    #         monitor.append(net.get(sw))
+    #     for switch in monitor:
+    #         for i in switch.intfs:
+    #             if str(switch.intfs[i]) == 'lo':
+    #                 continue
+    #             switch.cmd('sudo tcpdump -s 58 -B 65536 -nS -XX -i {0} net 10.0.0.0/16 -w $HOME/mallikarjun/stat/{0} &'.format(str(switch.intfs[i])))
+    #     for h in net.hosts:
+    #         h.cmd('sudo tcpdump -s 58 -B 65536 -nS -XX -i {0}-eth0 net 10.0.0.0/16 -w $HOME/mallikarjun/stat/{0} &'.format(str(h)))
+
+    # Activate the Mininet command line
     if args.cli:
         CLI(net)
         net.stop()
         exit(0)
 
+    # Start Traffic Generation
+    startTG(net)
+
+    # Poll for traffic to die
+    while True:
+        ps = os.popen('ps -a').read()
+        if 'ITGSend' not in ps:
+            os.system('sleep 2 && pkill ITGRecv')
+        if 'ITG' not in ps:
+            break
     net.stop()
     exit(0)
